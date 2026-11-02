@@ -69,11 +69,11 @@ The manuscript reports the following settings:
 - Data loader workers: **6**
 - Loss: Average cross-entropy across side classifiers
 
-The repository includes `train.py`, `main.py`, and a `configs/` directory. Configure dataset paths and training parameters before running the training entry point. **The exact launch command and configuration filename should be verified against the published code.**
+The repository includes `train.py`, `main.py`, and a `configs/` directory. Configure dataset paths and training parameters before running the training entry point. 
 
 ## Inference
 
-The repository includes `inference.py`. Set the trained checkpoint, input image location, and output location using the options supported by that script. **The exact inference command will be documented after its CLI arguments are verified.**
+The repository includes `inference.py`. 
 
 ## Project Structure
 
@@ -101,4 +101,3 @@ If you use this implementation in your research, please cite the associated manu
 ## Notes
 
 Pretrained weights and download links will be provided here if released. This code is intended for research use and is not validated for clinical diagnosis.
-
