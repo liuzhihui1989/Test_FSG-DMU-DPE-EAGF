@@ -1,0 +1,5 @@
+pip install wandb
+pip install swanlab
+pip install opencv-python-headless==4.4.0.44
+pip install timm
+pip install fvcore

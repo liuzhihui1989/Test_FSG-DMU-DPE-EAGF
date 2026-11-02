@@ -1,0 +1,53 @@
+{
+ ### Environment Parameters
+  debug: false,
+  mode: train,
+  cuda: true,
+  pin_memory: true, #是否使用内存加速
+  wandb: true,
+  worker: 8, #DataLoader中的工作线程数,用于加速数据加载，8表示使用8个线程
+  log_interval: 9999,  #作者设置的9999，我感觉不合适
+  save_interval: 1, #每训练几个 epoch 保存模型
+  saved_model_directory: 'model_ckpts', #模型保存目录
+  train_fold: 1, #验证频率控制因子, 每个 epoch 最后才验证一次
+  project_name: 'Test_FSG+DMU+DPE+EAGF',
+  CUDA_VISIBLE_DEVICES: '0',
+
+  ### Train Parameters
+  model_name: 'FSGNet', # UNet, UNet2P, UNet3P_Deep, ResUNet, ResUNet2P, SAUNet, ATTUNet, DCSAU_UNet, AGNet, R2UNet, ConvUNeXt, FRUNet, FSGNet
+    n_classes: 1,
+    in_channels: 3,
+  dataloader: 'Image2Image_zero_pad',
+  criterion: 'DiceBCELoss', # DiceBCELoss
+  task: 'segmentation',
+  input_space: 'RGB',
+  input_channel: 3,
+  input_size: [512, 512],  # [h, w] DRIVE:608, STARE:704, CHASE_DB1:1024, HRF:如果是HRF1344_896文件夹，那么写1344,1344. 如果是HRF876_584文件夹，那么写896,896.  FIVES:512
+  optimizer: 'AdamW',
+    lr: 0.001,
+    scheduler: 'WarmupCosine',  # ConstantLRSchedule, WarmupCosine
+    cycles: 1000,  #self.args.cycles * 4轮训练对应的验证集上性能没有提升，就early stop 早停
+    warmup_epoch: 20,
+    weight_decay: 0.05, # 0.05
+  batch_size: 1,
+  epoch: 10000,
+  ema_decay: 0, # set 0 to deactivate
+  class_weight: [1.0, 1.0],
+  model_path: '', # pretrained/FSG-Net-HRF.pt
+    freeze_layer: false,
+
+  ### Augmentation Parameters
+  transform_blur: true,
+  transform_jitter: true,
+  transform_hflip: true,
+  transform_perspective: true,
+  transform_cutmix: true,
+  transform_rand_resize: true,
+  transform_rand_crop: 288,
+
+#更换文件夹，DRIVE,CHASE_DB1,STARE,HRF876_584,FIVES512
+  train_x_path: 'dataset/FIVES512/train/input',
+  train_y_path: 'dataset/FIVES512/train/label',
+  val_x_path: 'dataset/FIVES512/val/input',
+  val_y_path: 'dataset/FIVES512/val/label',
+}
